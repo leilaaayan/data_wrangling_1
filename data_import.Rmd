@@ -56,6 +56,16 @@ library(haven)
 pulse_df = read_sas("./public_pulse_data.sas7bdat")
 pulse_df
 ```
+# comparison with base r
+
+what about "read.csv"? just never use read.csv, always use read_csv
+```{r}
+litters_base = read.csv("FAS_litters.csv")
+litters_readr = read_csv("FAS_litters.csv")
+
+litters_base
+Litters_readr
+```
 
 
 
