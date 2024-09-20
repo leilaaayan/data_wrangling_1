@@ -1,8 +1,70 @@
 ---
 title: "Simple document"
-output: html_document
+output: github_document
 ---
 
+```{r setup}
+library(tidyverse)
+```
+
+## Read in some data
+read in the litters dataset.
+```{r}
+litters_df = read_csv("FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+```
+in the janitor package, use clean_names
+
+
+## take a look at the data
+printing in the console
+```{r}
+litters_df 
+``` 
+
+```{r}
+head(litters_df)
+```
+
+```{r}
+tail(litters_df)
+```
+
+```{r}
+skimr::skim(litters_df)
+```
+In the skimr package use the skim function
+
+## OPtions to read_csv
+```{r}
+litters_df = read_csv("FAS_litters.csv", skip=10, col_names=FALSE)
+```
+check out '?read_csv()' for more information.
+
+
+## Other file formats
+Read in an excel file
+```{r}
+library(readxl)
+mlb_df = read_excel("mlb11.xlsx")
+mlb_df
+```
+
+read in a SAS file
+```{r}
+library(haven)
+pulse_df = read_sas("./public_pulse_data.sas7bdat")
+pulse_df
+```
+
+
+
+
+
+
+
+
+-------------------------------------------------
 I'm an R Markdown document! 
 
 # Section 1
