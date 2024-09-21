@@ -74,6 +74,49 @@ write_csv(mlb_df, "./mlb_subtable.csv")
 ```
 
 ## Data Manipulation
+## Select
+choose some columns and not others.
+```{r}
+select(litters_df, group, gd0_weight)
+
+# specify a range of columns use ":"
+select(litters_df, group, gd0_weight:gd_of_birth)
+```
+
+only get rid of the "little_number" column where keep everything else
+```{r}
+select(litters_df, -litter_number)
+```
+
+Renaming columns
+this one is to select and rename simultaneously
+```{r}
+select(litters_df, GROUP= group, LITTer_NUmber=litter_number)
+```
+```{r}
+rename (litters_df, GROUP= group, LITTer_NUmber=litter_number )
+```
+
+only select columns that start with gd
+```{r}
+select(litters_df, starts_with("gd"))
+```
+
+this would select litter_number and move it from whereever
+to the beginning and keep everything else
+```{r}
+select(litters_df, litter_number, everything())
+```
+just trying to relocate this "litter_number" column to the beginning
+```{r}
+relocate(litters_df, litter_number)
+```
+
+
+
+
+
+
 
 
 
