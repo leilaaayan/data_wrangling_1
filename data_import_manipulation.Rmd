@@ -75,7 +75,7 @@ write_csv(mlb_df, "./mlb_subtable.csv")
 
 ## Data Manipulation
 ## Select
-choose some columns and not others.
+choose some columns and not others.Keep the rows intact
 ```{r}
 select(litters_df, group, gd0_weight)
 
@@ -112,33 +112,42 @@ just trying to relocate this "litter_number" column to the beginning
 relocate(litters_df, litter_number)
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------------------
-I'm an R Markdown document! 
-
-# Section 1
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
-
+## filter
+remove rows or keep columns
 ```{r}
-samp = rnorm(100)
-length(samp)
+filter(litters_df, gd0_weight < 22)
+#only keep the gestation weight that's less than 22
+
+filter(litters_df, gd0_weight >= 22)
+```
+```{r}
+filter(litters_df, gd_of_birth==20)
+#gestation date of birth is equal to 20, use "=="
 ```
 
-# Section 2
+```{r}
+filter(litters_df, !(gd_of_birth==20))
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+#this gives all the pups' gestational date of birth that doesn't equal to 20, !() flips it
+
+#or you can do this:
+filter(litters_df, gd_of_birth !=20)
+```
+filter two things at the same time
+```{r}
+filter(litters_df, gd0_weight >=22, gd_of_birth==20)
+```
+look at a categorical variable
+```{r}
+filter(litters_df, group == "Mod8")
+```
+filter two different categories, both Mod 8 and Con 7 use %in%
+```{r}
+filter(litters_df, group %in% c("Mod8", "Con7"))
+```
+
+
+
+
+
+
