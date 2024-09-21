@@ -73,6 +73,8 @@ export the mlb sub-table.
 write_csv(mlb_df, "./mlb_subtable.csv")
 ```
 
+## Data Manipulation
+
 
 
 
