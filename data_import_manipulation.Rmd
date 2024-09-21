@@ -146,6 +146,36 @@ filter two different categories, both Mod 8 and Con 7 use %in%
 filter(litters_df, group %in% c("Mod8", "Con7"))
 ```
 
+##Mutate
+create additional variables or modify exisitng variables
+```{r}
+mutate(
+  litters_df, 
+  wt_gain = gd18_weight - gd0_weight, #added wt_gain variable
+  group = str_to_lower(group)) #modify the group variable by making everything lower case
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
