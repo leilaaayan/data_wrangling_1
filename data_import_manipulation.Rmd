@@ -184,6 +184,47 @@ litters_df =
 ```
 
 ## Tidy data
+## pivot_longer
+load the PULSE data
+
+```{r}
+pulse_data = 
+  haven::read_sas("./public_pulse_data.sas7bdat") %>%
+# use the haven package
+  janitor::clean_names()
+
+```
+
+wide format to long format
+```{r}
+pulse_data_tidy=
+  pulse_data %>%
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m, 
+    names_to = "visit", 
+    #the new column where all bdi_score go into "visit"
+    names_prefix = "bdi_score_", 
+    #get rid of alll the prefixes
+    values_to= "bdi"   #the new column called bdi
+  )
+```
+
+rewrite, combine, and extend (to add a mutate step)
+```{r}
+pulse_data = 
+  haven::read_sas("./public_pulse_data.sas7bdat") %>%
+# use the haven package
+  janitor::clean_names() %>%
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )%>%
+  relocate(id, visit) %>%
+  mutate(visit = recode(visit, "bl"="00m"))
+# recode allows you to change observations, recode visit where bl is replaced by 00m
+```
 
 
 
