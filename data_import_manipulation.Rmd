@@ -155,10 +155,35 @@ mutate(
   group = str_to_lower(group)) #modify the group variable by making everything lower case
 ```
 
+##arrange
 ```{r}
+arrange(litters_df, pups_born_alive)
+# arrange by pups_born_alive variable
 
+arrange(litters_df, pups_born_alive, gd0_weight)
+```
+## %>%
+```{r}
+litters_data_raw = read_csv("FAS_litters.csv")
+litters_clean_name = janitor :: clean_names(litters_data_raw) # clean the names
+litters_data_selected = select(litters_clean_name, -pups_survive) # take everything except for pups_survive
+litters_mutated=mutate(litters_data_selected, wt_gain = gd18_weight - gd0_weight)
+litters_without_missing = drop_na(litters_mutated, gd0_weight) # drop everything where gd0_weight is missing
 ```
 
+USE THE PIPE OPERATOR INSTEAD
+
+```{r}
+litters_df = 
+  read_csv("FAS_litters.csv") %>%
+  janitor::clean_names() %>%
+  select(-pups_survive) #select everything eexcept this variable
+  mutate(wt_gain = gd18_weight - gd0_weight) %>%
+  drop_na(gd0_weight)
+  
+```
+
+## Tidy data
 
 
 
