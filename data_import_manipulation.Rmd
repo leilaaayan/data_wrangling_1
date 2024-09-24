@@ -195,7 +195,7 @@ pulse_data =
 
 ```
 
-wide format to long format
+pivot longer
 ```{r}
 pulse_data_tidy=
   pulse_data %>%
@@ -226,10 +226,57 @@ pulse_data =
 # recode allows you to change observations, recode visit where bl is replaced by 00m
 ```
 
+## pivot wider
+make up some data!
 
+```{r}
+analysis_result=
+  tibble(
+    group=c("treatment", "treatment", "placebo", "placebo"),
+    time = c("pre", "post", "pre", "post"),
+    mean = c(4, 8, 4.5, 4)
+  )
 
+analysis_result %>%
+  pivot_wider(
+   names_from = "time",
+   values_from = "mean"
+  )
+#makes it easier to read
+```
 
+##binidng rows
+using the lord of the ring data
+first step: import each table
 
+```{r}
+fellowship_ring = 
+  readxl::read_excel("./LotR_Words.xlsx", range = "B3:D6") %>%
+  mutate(movie = "fellowship_ring")
+  
+two_towers = 
+  readxl::read_excel("./LotR_Words.xlsx", range = "F3:H6") %>%
+  mutate(movie = "two_towers")
+
+return_king = 
+  readxl::read_excel("./LotR_Words.xlsx", range = "J3:L6") %>%
+  mutate(movie = "return_king")
+```
+
+bind all the rows together
+
+```{r}
+latr_tidy = 
+  bind_rows(fellowship_ring, two_towers, return_king) %>%
+  janitor::clean_names() %>%
+  relocate(movie) %>%
+  pivot_longer(
+    female:male,
+    names_to = "gender",
+    values_to = "words"
+  )
+
+```
 
 
 
